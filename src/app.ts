@@ -18,6 +18,10 @@ import router from "./router";
 //Logger
 import Logger from "../config/logger";
 
+// Middlewares
+import morganMiddleware from "./middleware/morganMiddleware";
+
+app.use(morganMiddleware); //imprime as requisições no terminal (dev)
 app.use("/api/", router);
 
 //app port
