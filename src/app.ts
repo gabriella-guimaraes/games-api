@@ -29,6 +29,6 @@ const port = config.get<Number>("port");
 
 app.listen(port, async () => {
     await db(); // A aplicação só é inicializada quando o db for conectado!
-    Logger.info(`App listening on port ${port}`);
-    process.exit(1); // para a aplicação em caso de erro para conectar no db
+    Logger.info(`App listening on port: ${port}`);
+    //process.exit(1); // para a aplicação em caso de erro para conectar no db
 });
