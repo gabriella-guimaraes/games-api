@@ -2,9 +2,10 @@ import { model, Schema } from "mongoose";
 
 const gameSchema = new Schema(
     {
-        tittle: {type: String},
+        title: {type: String},
         rating: {type: Number},
         description: {type: String},
+        platform: {type: String},
         stars: {type: Array},
         poster: {type: String}
     },
