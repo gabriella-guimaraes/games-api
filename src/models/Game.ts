@@ -6,7 +6,7 @@ const gameSchema = new Schema(
         rating: {type: Number},
         description: {type: String},
         platform: {type: String},
-        stars: {type: Array},
+        favCharacters: {type: Array},
         poster: {type: String}
     },
     {
