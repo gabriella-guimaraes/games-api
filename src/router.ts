@@ -1,5 +1,5 @@
 import { Router, Request, Response } from "express";
-import { createGame } from "./controllers/gameControllers";
+import { createGame, findGameById } from "./controllers/gameControllers";
 
 // Validations
 import { validate } from "./middleware/handleValidation";
@@ -10,4 +10,5 @@ const router = Router();
 export default router.get("/test", (req: Request, res: Response) => {
    return res.status(200).send("API Working!");
 })
-.post("/game", gameCreateValidation(), validate, createGame);
+.post("/game", gameCreateValidation(), validate, createGame)
+.get("/game/:id", findGameById)
