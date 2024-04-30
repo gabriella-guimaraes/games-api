@@ -71,8 +71,29 @@ export async function removeGame(req: Request, res: Response) {
     }
 }
 
+// UPDATE
+export async function updateGame(req: Request, res: Response) {
+    try {
+        const id = req.params.id;
+        const data = req.body;
+        const game = await GameModel.findById(id);
+
+        if(!game) {
+            return res.status(404).send("Game not found!");
+        }
+
+        await GameModel.updateOne({_id: id}, game);
+
+        return res.status(200).json(data);
+
+    } catch(error: any) {
+        Logger.error(`An error occurred while updating the game: ${error.message}`);
+        return res.status(500).json({error: "Please, try again later."});
+    }
+}
+
 // TODO: criar as seguintes rotas neste controller:
-// - get all games
-// - delete by id
+// - get all games - done
+// - delete by id - done
 // - PUT/ update by id
 // Hacker Edition: criar a documentação no swagger

@@ -1,5 +1,5 @@
 import { Router, Request, Response } from "express";
-import { createGame, findGameById, getAllGames, removeGame } from "./controllers/gameControllers";
+import { createGame, findGameById, getAllGames, removeGame, updateGame } from "./controllers/gameControllers";
 
 // Validations
 import { validate } from "./middleware/handleValidation";
@@ -14,3 +14,4 @@ export default router.get("/test", (req: Request, res: Response) => {
 .get("/game/:id", findGameById)
 .get("/game", getAllGames)
 .delete("/game/:id", removeGame)
+.patch("/game/:id", gameCreateValidation(), validate, updateGame)
