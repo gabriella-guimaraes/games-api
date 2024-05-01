@@ -91,9 +91,3 @@ export async function updateGame(req: Request, res: Response) {
         return res.status(500).json({error: "Please, try again later."});
     }
 }
-
-// TODO: criar as seguintes rotas neste controller:
-// - get all games - done
-// - delete by id - done
-// - PUT/ update by id
-// Hacker Edition: criar a documentação no swagger
