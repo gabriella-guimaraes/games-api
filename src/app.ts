@@ -36,8 +36,22 @@ const swaggerDefinition = {
     info: {
         title: 'Gamer Wiki',
         version: '1.0.0',
-        description: 'Express RESTful API with TS Documentation'
+        description: 'Express RESTful API with TS Documentation',
+        license: {
+            name: 'Licensed Under MIT',
+            url: 'https://spdx.org/licenses/MIT.html',
+          },
+        contact: {
+            name: 'Gabriella Guimarães',
+            url: 'https://github.com/gabriella-guimaraes'
+        } ,
     },
+    servers: [
+        {
+            url: 'http://localhost:3000/api',
+            description: 'Development server'
+        }
+    ]
 };
 
 const options = {
