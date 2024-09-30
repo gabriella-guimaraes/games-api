@@ -26,9 +26,12 @@ export const gameCreateValidation = () => {
             .withMessage("There must to be a platform")
             .isLength({ min: 2 })
             .withMessage("The platform must have at least 2 characters"),
-        body("poster")
-            .isURL()
-            .withMessage("There image needs to be an URL")
+        body("poster").custom((_, { req }) => {
+            if (!req.file) {
+              throw new Error("An image file must be uploaded for the poster");
+            }
+            return true;
+          }),
         
     ]
 }

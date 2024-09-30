@@ -9,13 +9,30 @@ import Logger from "../../config/logger";
 
 export async function createGame(req: Request, res: Response) {
     try {
-        const data = req.body;
-        const game = await GameModel.create(data);
+        const { title, rating, description, platform, favCharacters } = req.body;
+
+        // Verifica se o arquivo foi enviado
+        if (!req.file) {
+            return res.status(422).json({ error: "Poster image is required." });
+        }
+
+        // Pega o caminho do arquivo salvo pelo multer
+        const posterPath = req.file.path;
+
+        // Cria o jogo com os dados recebidos e o caminho da imagem
+        const game = await GameModel.create({
+            title,
+            rating,
+            description,
+            platform,
+            favCharacters,
+            poster: posterPath, // Define o poster com o caminho da imagem
+        });
 
         return res.status(201).json(game);
     } catch (error: any) {
         Logger.error(`An error occurred while creating: ${error.message}`);
-        return res.status(500).json({error: "Please, try again later."});
+        return res.status(500).json({ error: "Please, try again later." });
     }
 };
 

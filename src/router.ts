@@ -5,7 +5,11 @@ import { createGame, findGameById, getAllGames, removeGame, updateGame } from ".
 import { validate } from "./middleware/handleValidation";
 import { gameCreateValidation } from "./middleware/gameValidation";
 
+// multer config
+import upload from "../config/multer";
+
 const router = Router();
+
 
 /**
  * @swagger
@@ -26,31 +30,38 @@ const router = Router();
  * /game:
  *   post:
  *     summary: Create a new game.
+ *     consumes:
+ *       - multipart/form-data
  *     requestBody:
  *       content:
- *         application/json:
+ *         multipart/form-data:
  *           schema:
- *             $ref: '#/components/schemas/Game'
+ *             type: object
+ *             properties:
+ *               title:
+ *                 type: string
+ *                 description: The title of the game
+ *               rating:
+ *                 type: number
+ *                 description: The rating of the game (between 0 and 100)
+ *               description:
+ *                 type: string
+ *                 description: A short description of the game
+ *               platform:
+ *                 type: string
+ *                 description: The platform on which the game is available
+ *               favCharacters:
+ *                 type: array
+ *                 items:
+ *                   type: string
+ *                 description: The favorite characters of the game
+ *               poster:
+ *                 type: string
+ *                 format: binary
+ *                 description: The image poster of the game (uploaded file)
  *     responses:
  *       '201':
- *         description: Created
- *   get:
- *     summary: Return all the games.
- *     responses:
- *       '200':
- *         description: OK
- *   delete:
- *     summary: Remove a game by Id.
- *     parameters:
- *       - in: path
- *         name: id
- *         schema:
- *           type: string
- *         required: true
- *         description: ID of the game to be removed.
- *     responses:
- *       '204':
- *         description: No Content
+ *         description: Game created successfully
  */
 
 /**
@@ -121,7 +132,7 @@ const router = Router();
 export default router.get("/test", (req: Request, res: Response) => {
    return res.status(200).send("API Working!");
 })
-.post("/game", gameCreateValidation(), validate, createGame)
+.post("/game", upload.single("poster"), gameCreateValidation(), validate, createGame)
 .get("/game/:id", findGameById)
 .get("/game", getAllGames)
 .delete("/game/:id", removeGame)
