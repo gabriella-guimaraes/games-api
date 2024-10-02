@@ -77,12 +77,13 @@ export async function updateGame(req: Request, res: Response) {
         const id = req.params.id;
         const data = req.body;
         const game = await GameModel.findById(id);
+        //update game
 
         if(!game) {
             return res.status(404).send("Game not found!");
         }
 
-        await GameModel.updateOne({_id: id}, game);
+        await GameModel.updateOne({_id: id}, data);
 
         return res.status(200).json(data);
 
